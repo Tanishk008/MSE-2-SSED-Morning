@@ -87,19 +87,23 @@ jobs:
       - name: Verify deployment
         run: |
           for attempt in $(seq 1 40); do
-            if curl --fail --silent http://localhost:3000/health; then
+            RESPONSE=$(curl --fail --silent http://localhost:3000/health || true)
+            if echo "$RESPONSE" | grep -q '"postgres":"ok"' && echo "$RESPONSE" | grep -q '"redis":"ok"'; then
               echo
-              echo "Deployment backend is healthy"
+              echo "Deployment backend is healthy: $RESPONSE"
               break
             fi
             if [ "$attempt" -eq 40 ]; then
+              echo "Backend health verification failed. Response: $RESPONSE"
               docker compose -f docker-compose.deploy.yml ps
               docker compose -f docker-compose.deploy.yml logs --no-color
               exit 1
             fi
+            echo "Waiting for backend ($attempt/40)..."
             sleep 3
           done
           curl --fail --silent http://localhost:8080/ > /dev/null
+          echo "Frontend accessibility verified"
 
       - name: Run API tests against Docker Hub deployment
         working-directory: tests
