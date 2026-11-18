@@ -7,6 +7,7 @@
 **Branch:** B.Tech CSE (AI) / CSE-AIML  
 **College:** KIET Group of Institutions, Delhi-NCR  
 **GitHub Profile:** [https://github.com/ishubhamkumar005](https://github.com/ishubhamkumar005)  
+**Docker Hub Username:** [shubham7080](https://hub.docker.com/u/shubham7080)  
 **Starter Repository:** [https://github.com/atindeRR/MSE-2-SSED-Morning](https://github.com/atindeRR/MSE-2-SSED-Morning)  
 **Personal Fork:** [https://github.com/ishubhamkumar005/MSE-2-SSED-Morning](https://github.com/ishubhamkumar005/MSE-2-SSED-Morning)  
 **Official Pull Request:** [https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4](https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4)  
@@ -36,6 +37,12 @@ The application architecture includes:
 - [x] **Docker Compose (`docker-compose.yml`):** Fully orchestrates all 4 services with internal bridge networking (`taskflow-net`), port mappings (`8080:80`, `3000:3000`), health checks on all dependencies, and named volume persistence.
 - [x] **Deployment Compose (`docker-compose.deploy.yml`):** Pure image-based deployment referencing Docker Hub published images with zero `build:` directives.
 - [x] **Environment & Security:** Secured `.env` file, comprehensive `.env.example`, `.gitignore` ensuring zero secret leaks.
+- [x] **Docker Hub Image Publishing:** Successfully pushed 4 image tags to Docker Hub under `shubham7080`:
+  - `shubham7080/taskflow-backend:latest`
+  - `shubham7080/backend:latest`
+  - `shubham7080/taskflow-frontend:latest`
+  - `shubham7080/frontend:latest`
+- [x] **Deployment Compose Verification:** Verified `docker compose -f docker-compose.deploy.yml pull` directly from Docker Hub without building locally.
 - [x] **PostgreSQL Persistence:** Verified that database records survive complete `docker compose down` and recreation.
 - [x] **Redis Caching:** Verified that `GET /api/tasks` populates cache and returns `source: 'redis-cache'`, and mutating operations invalidate cache.
 - [x] **Automated Test Suite:** 12/12 Jest integration test cases passed (`tests/api.test.js`).
@@ -67,14 +74,14 @@ The application architecture includes:
 
 ---
 
-## 4. Docker Images & IDs
+## 4. Docker Images Published to Docker Hub
 
-| Image Name | Tag | Image ID / Digest | Size | Purpose |
+| Image Name | Tag | Image ID / Digest | Size | Online Availability |
 |---|---|---|---|---|
-| `taskflow-backend` | `local` | `5b6462b86a4f` | ~165 MB | Local backend API service |
-| `taskflow-frontend` | `local` | `f4914b647347` | ~24.8 MB | Local Nginx React static server |
-| `postgres` | `16-alpine` | `a2d17f5b24d5` | ~380 MB | Relational database |
-| `redis` | `7-alpine` | `dfed3a5d50b9` | ~45 MB | In-memory cache |
+| `shubham7080/taskflow-backend` | `latest` | `sha256:41b7a458...` | ~52.5 MB compressed | Published & Verified |
+| `shubham7080/backend` | `latest` | `sha256:41b7a458...` | ~52.5 MB compressed | Published & Verified |
+| `shubham7080/taskflow-frontend` | `latest` | `sha256:ed5177af...` | ~21.0 MB compressed | Published & Verified |
+| `shubham7080/frontend` | `latest` | `sha256:ed5177af...` | ~21.0 MB compressed | Published & Verified |
 
 ---
 
@@ -94,6 +101,8 @@ The application architecture includes:
 - **Frontend Application UI:** [http://localhost:8080/](http://localhost:8080/)
 - **Backend Health Check:** [http://localhost:3000/health](http://localhost:3000/health)
 - **Frontend Reverse Proxy Health:** [http://localhost:8080/health](http://localhost:8080/health)
+- **Docker Hub Backend:** [https://hub.docker.com/r/shubham7080/taskflow-backend](https://hub.docker.com/r/shubham7080/taskflow-backend)
+- **Docker Hub Frontend:** [https://hub.docker.com/r/shubham7080/taskflow-frontend](https://hub.docker.com/r/shubham7080/taskflow-frontend)
 - **Official Pull Request:** [https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4](https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4)
 - **Student GitHub Fork:** [https://github.com/ishubhamkumar005/MSE-2-SSED-Morning](https://github.com/ishubhamkumar005/MSE-2-SSED-Morning)
 
