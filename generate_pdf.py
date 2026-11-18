@@ -6,69 +6,55 @@ from reportlab.platypus import (
     SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether, HRFlowable
 )
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.units import inch
 
 def create_submission_pdf(roll_number, student_name, section, branch, github_username, dockerhub_username, output_path):
     doc = SimpleDocTemplate(
         output_path,
         pagesize=letter,
-        rightMargin=40, leftMargin=40,
-        topMargin=40, bottomMargin=40
+        rightMargin=36, leftMargin=36,
+        topMargin=32, bottomMargin=32
     )
 
     styles = getSampleStyleSheet()
     
-    # Custom styles
     title_style = ParagraphStyle(
         'DocTitle',
         parent=styles['Heading1'],
-        fontSize=20,
-        leading=24,
+        fontSize=18,
+        leading=22,
         textColor=colors.HexColor('#1a365d'),
-        alignment=1, # Center
-        spaceAfter=10
+        alignment=1,
+        spaceAfter=6
     )
     
     subtitle_style = ParagraphStyle(
         'DocSubtitle',
         parent=styles['Normal'],
-        fontSize=12,
-        leading=16,
+        fontSize=11,
+        leading=15,
         textColor=colors.HexColor('#4a5568'),
         alignment=1,
-        spaceAfter=15
+        spaceAfter=10
     )
     
     h1_style = ParagraphStyle(
         'SectionH1',
         parent=styles['Heading2'],
-        fontSize=13,
-        leading=17,
+        fontSize=11,
+        leading=15,
         textColor=colors.HexColor('#2b6cb0'),
-        spaceBefore=12,
-        spaceAfter=6,
+        spaceBefore=8,
+        spaceAfter=4,
         keepWithNext=True
     )
     
     body_style = ParagraphStyle(
         'BodyDark',
         parent=styles['Normal'],
-        fontSize=9,
-        leading=13,
-        textColor=colors.HexColor('#2d3748'),
-        spaceAfter=6
-    )
-    
-    code_style = ParagraphStyle(
-        'CodeStyle',
-        parent=styles['Code'],
         fontSize=8,
-        leading=10,
+        leading=11,
         textColor=colors.HexColor('#2d3748'),
-        backColor=colors.HexColor('#edf2f7'),
-        fontName='Courier',
-        spaceBefore=4,
-        spaceAfter=6
+        spaceAfter=2
     )
 
     badge_pass = ParagraphStyle(
@@ -85,7 +71,7 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
     # Title Banner
     elements.append(Paragraph("MSE-2 PRACTICAL EXAMINATION SUBMISSION REPORT", title_style))
     elements.append(Paragraph("Course: Software Engineering and DevOps (AI310B) — Morning Shift", subtitle_style))
-    elements.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor('#2b6cb0'), spaceAfter=12))
+    elements.append(HRFlowable(width="100%", thickness=1.5, color=colors.HexColor('#2b6cb0'), spaceAfter=8))
 
     # 1. Student Information
     elements.append(Paragraph("1. Student & Examination Information", h1_style))
@@ -99,17 +85,17 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         [Paragraph("<b>Target Branch:</b>", body_style), Paragraph("main", body_style),
          Paragraph("<b>Date of Examination:</b>", body_style), Paragraph("18-November-2026", body_style)]
     ]
-    t_student = Table(student_data, colWidths=[110, 150, 130, 140])
+    t_student = Table(student_data, colWidths=[110, 160, 130, 140])
     t_student.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor('#f7fafc')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cbd5e0')),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor('#e2e8f0')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
     ]))
     elements.append(t_student)
-    elements.append(Spacer(1, 8))
+    elements.append(Spacer(1, 6))
 
     # 2. Repository & Docker Hub References
     elements.append(Paragraph("2. Repository & Container Registry Links", h1_style))
@@ -122,17 +108,17 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         [Paragraph("Application UI URL", body_style), Paragraph("http://localhost:8080 (Served via Nginx)", body_style)],
         [Paragraph("Backend Health Check URL", body_style), Paragraph("http://localhost:3000/health (Express API)", body_style)]
     ]
-    t_repo = Table(repo_data, colWidths=[150, 380])
+    t_repo = Table(repo_data, colWidths=[150, 390])
     t_repo.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#ebf8ff')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cbd5e0')),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor('#e2e8f0')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 2.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
     ]))
     elements.append(t_repo)
-    elements.append(Spacer(1, 8))
+    elements.append(Spacer(1, 6))
 
     # 3. Architecture & Service Orchestration
     elements.append(Paragraph("3. Multi-Container Orchestration Architecture", h1_style))
@@ -143,21 +129,20 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         [Paragraph("<b>postgres</b>", body_style), Paragraph("PostgreSQL 16 Alpine", body_style), Paragraph("5432", body_style), Paragraph("Internal", body_style), Paragraph("pg_isready -U user -d db (Named Volume)", body_style)],
         [Paragraph("<b>redis</b>", body_style), Paragraph("Redis 7 Alpine", body_style), Paragraph("6379", body_style), Paragraph("Internal", body_style), Paragraph("redis-cli ping (Cache-Aside Pattern)", body_style)]
     ]
-    t_arch = Table(arch_data, colWidths=[65, 175, 75, 65, 150])
+    t_arch = Table(arch_data, colWidths=[65, 185, 75, 65, 150])
     t_arch.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#ebf8ff')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cbd5e0')),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor('#e2e8f0')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 2.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
     ]))
     elements.append(t_arch)
-    elements.append(Spacer(1, 10))
+    elements.append(Spacer(1, 6))
 
     # 4. Verified Execution Evidence
     elements.append(Paragraph("4. Practical Execution & Verification Evidence", h1_style))
-    
     ev_data = [
         [Paragraph("<b>Stage / Verification Check</b>", body_style), Paragraph("<b>Command / Tool Used</b>", body_style), Paragraph("<b>Observed Result</b>", body_style), Paragraph("<b>Status</b>", body_style)],
         [Paragraph("Frontend Dockerfile Validation", body_style), Paragraph("hadolint &lt; frontend/Dockerfile", body_style), Paragraph("0 warnings, 0 errors, multi-stage Nginx", body_style), Paragraph("PASSED", badge_pass)],
@@ -172,19 +157,16 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         [Paragraph("Redis Caching Verification", body_style), Paragraph("GET /api/tasks (subsequent)", body_style), Paragraph("Served from redis-cache (30s TTL)", body_style), Paragraph("PASSED", badge_pass)],
         [Paragraph("Jest Test Suite (12 Tests)", body_style), Paragraph("npm test (Supertest)", body_style), Paragraph("12/12 passed (TC01 to TC12)", body_style), Paragraph("PASSED", badge_pass)]
     ]
-    t_ev = Table(ev_data, colWidths=[120, 150, 195, 65])
+    t_ev = Table(ev_data, colWidths=[120, 150, 205, 65])
     t_ev.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#e6fffa')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cbd5e0')),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor('#e2e8f0')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 3),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
+        ('TOPPADDING', (0,0), (-1,-1), 2.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
     ]))
     elements.append(t_ev)
-    elements.append(Spacer(1, 10))
-
-    # Page Break for clean second page
     elements.append(PageBreak())
 
     # 5. Jest Automated Test Results Breakdown
@@ -204,17 +186,17 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         [Paragraph("TC11: Task Deletion", body_style), Paragraph("status 200, task removed from PostgreSQL", body_style), Paragraph("PASSED", badge_pass)],
         [Paragraph("TC12: Deletion Persistence Check", body_style), Paragraph("task ID absent from subsequent task listings", body_style), Paragraph("PASSED", badge_pass)]
     ]
-    t_tests = Table(test_cases, colWidths=[180, 280, 70])
+    t_tests = Table(test_cases, colWidths=[180, 290, 70])
     t_tests.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#edf2f7')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cbd5e0')),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor('#e2e8f0')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 2.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
+        ('TOPPADDING', (0,0), (-1,-1), 2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2),
     ]))
     elements.append(t_tests)
-    elements.append(Spacer(1, 10))
+    elements.append(Spacer(1, 6))
 
     # 6. CI/CD Pipeline Stages
     elements.append(Paragraph("6. CI/CD GitHub Actions Workflow Specification", h1_style))
@@ -224,7 +206,8 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         "<b>cd.yml</b> (authenticates to Docker Hub using repository secrets, builds and publishes tagged multi-tier images, and verifies pure image deployment via <code>docker-compose.deploy.yml</code>).",
         body_style
     ))
-    
+    elements.append(Spacer(1, 4))
+
     cd_stages = [
         [Paragraph("<b>CI/CD Stage</b>", body_style), Paragraph("<b>Action / Step Performed</b>", body_style), Paragraph("<b>Expected Result</b>", body_style)],
         [Paragraph("1. Repository checkout", body_style), Paragraph("actions/checkout@v4", body_style), Paragraph("Repository code loaded onto runner", body_style)],
@@ -237,17 +220,17 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         [Paragraph("8. Application deployment", body_style), Paragraph("docker compose -f docker-compose.deploy.yml up -d", body_style), Paragraph("All services launched in detached mode", body_style)],
         [Paragraph("9. Health & API verification", body_style), Paragraph("curl /health & npm test", body_style), Paragraph("Backend healthy, frontend HTTP 200", body_style)]
     ]
-    t_cd = Table(cd_stages, colWidths=[140, 220, 170])
+    t_cd = Table(cd_stages, colWidths=[140, 230, 170])
     t_cd.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#f0fff4')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cbd5e0')),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor('#e2e8f0')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 2.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
+        ('TOPPADDING', (0,0), (-1,-1), 2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2),
     ]))
     elements.append(t_cd)
-    elements.append(Spacer(1, 12))
+    elements.append(Spacer(1, 8))
 
     # 7. Student Declaration
     elements.append(Paragraph("7. Student Declaration", h1_style))
@@ -257,17 +240,17 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         "to my Docker Hub account, and tested the application deployment.\"</i>"
     )
     elements.append(Paragraph(declaration_text, body_style))
-    elements.append(Spacer(1, 15))
+    elements.append(Spacer(1, 10))
 
     sig_data = [
         [Paragraph(f"<b>Student Name:</b> {student_name}", body_style), Paragraph(f"<b>Roll Number:</b> {roll_number}", body_style)],
         [Paragraph(f"<b>Branch & Section:</b> {branch} ({section})", body_style), Paragraph("<b>Signature:</b> ___________________________", body_style)]
     ]
-    t_sig = Table(sig_data, colWidths=[265, 265])
+    t_sig = Table(sig_data, colWidths=[270, 270])
     t_sig.setStyle(TableStyle([
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 3),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3),
     ]))
     elements.append(t_sig)
 
