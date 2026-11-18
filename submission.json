@@ -1,0 +1,13 @@
+{
+  "name": "Kushal Verma",
+  "rollNumber": "202401100300144",
+  "section": "B",
+  "branch": "CSE (AI)",
+  "githubUsername": "Kushalv01",
+  "dockerHubUsername": "kushalv01",
+  "repository": "https://github.com/Kushalv01/MSE-2-SSED-Morning",
+  "images": {
+    "frontend": "kushalv01/taskflow-frontend:latest",
+    "backend": "kushalv01/taskflow-backend:latest"
+  }
+}
