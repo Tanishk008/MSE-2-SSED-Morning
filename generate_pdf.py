@@ -117,8 +117,8 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
     # 2. Repository & Docker Hub References
     elements.append(Paragraph("2. Repository & Container Registry Links", h1_style))
     gh_fork_url = f"https://github.com/{github_username}/MSE-2-SSED-Morning"
-    gh_starter_url = "https://github.com/atindeRR/MSE-2-SSED-Morning"
-    pr_url = "https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4"
+    gh_starter_url = "https://github.com/Tanishk008/MSE-2-SSED-Morning"
+    pr_url = "https://github.com/Tanishk008/MSE-2-SSED-Morning/pull/4"
     dh_backend_url = f"https://hub.docker.com/r/{dockerhub_username}/taskflow-backend"
     dh_frontend_url = f"https://hub.docker.com/r/{dockerhub_username}/taskflow-frontend"
 

@@ -8,9 +8,9 @@
 **College:** KIET Group of Institutions, Delhi-NCR  
 **GitHub Profile:** [https://github.com/ishubhamkumar005](https://github.com/ishubhamkumar005)  
 **Docker Hub Username:** [shubham7080](https://hub.docker.com/u/shubham7080)  
-**Starter Repository:** [https://github.com/atindeRR/MSE-2-SSED-Morning](https://github.com/atindeRR/MSE-2-SSED-Morning)  
+**Starter Repository:** [https://github.com/Tanishk008/MSE-2-SSED-Morning](https://github.com/Tanishk008/MSE-2-SSED-Morning)  
 **Personal Fork:** [https://github.com/ishubhamkumar005/MSE-2-SSED-Morning](https://github.com/ishubhamkumar005/MSE-2-SSED-Morning)  
-**Official Pull Request:** [https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4](https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4)  
+**Official Pull Request:** [https://github.com/Tanishk008/MSE-2-SSED-Morning/pull/4](https://github.com/Tanishk008/MSE-2-SSED-Morning/pull/4)  
 **Target Branch:** `main`  
 **Date:** 18 November 2026  
 
@@ -49,7 +49,7 @@ The application architecture includes:
 - [x] **Viva Preparation Guide:** Created [VIVA_QUESTIONS.md](file:///C:/Users/Shubham%20Kumar/Downloads/MSE-2-SSED-Morning-main/VIVA_QUESTIONS.md) containing 55 detailed questions and answers in beginner-friendly Hinglish.
 - [x] **Practical Commands Reference:** Created [PRACTICAL_COMMANDS.md](file:///C:/Users/Shubham%20Kumar/Downloads/MSE-2-SSED-Morning-main/PRACTICAL_COMMANDS.md) for live exam demonstration.
 - [x] **PDF Submission Documentation:** Generated official document [2400291520242_SHUBHAM_KUMAR.pdf](file:///C:/Users/Shubham%20Kumar/Downloads/MSE-2-SSED-Morning-main/2400291520242_SHUBHAM_KUMAR.pdf).
-- [x] **Official Pull Request:** Created [PR #4: DOCKER-EXAM | 2400291520242 | Shubham Kumar | D](https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4) against instructor's repository.
+- [x] **Official Pull Request:** Created [PR #4: DOCKER-EXAM | 2400291520242 | Shubham Kumar | D](https://github.com/Tanishk008/MSE-2-SSED-Morning/pull/4) against instructor's repository.
 
 ---
 
@@ -103,7 +103,7 @@ The application architecture includes:
 - **Frontend Reverse Proxy Health:** [http://localhost:8080/health](http://localhost:8080/health)
 - **Docker Hub Backend:** [https://hub.docker.com/r/shubham7080/taskflow-backend](https://hub.docker.com/r/shubham7080/taskflow-backend)
 - **Docker Hub Frontend:** [https://hub.docker.com/r/shubham7080/taskflow-frontend](https://hub.docker.com/r/shubham7080/taskflow-frontend)
-- **Official Pull Request:** [https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4](https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4)
+- **Official Pull Request:** [https://github.com/Tanishk008/MSE-2-SSED-Morning/pull/4](https://github.com/Tanishk008/MSE-2-SSED-Morning/pull/4)
 - **Student GitHub Fork:** [https://github.com/ishubhamkumar005/MSE-2-SSED-Morning](https://github.com/ishubhamkumar005/MSE-2-SSED-Morning)
 
 ---
