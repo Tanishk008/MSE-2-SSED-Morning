@@ -57,6 +57,12 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         spaceAfter=2
     )
 
+    link_style = ParagraphStyle(
+        'LinkStyle',
+        parent=body_style,
+        textColor=colors.HexColor('#2b6cb0')
+    )
+
     badge_pass = ParagraphStyle(
         'PassBadge',
         parent=styles['Normal'],
@@ -81,7 +87,7 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         [Paragraph("<b>Branch:</b>", body_style), Paragraph(branch, body_style),
          Paragraph("<b>Section:</b>", body_style), Paragraph(section, body_style)],
         [Paragraph("<b>GitHub Username:</b>", body_style), Paragraph(github_username, body_style),
-         Paragraph("<b>Docker Hub Username:</b>", body_style), Paragraph(dockerhub_username, body_style)],
+         Paragraph("<b>Docker Hub Username:</b>", body_style), Paragraph(f"<b>{dockerhub_username}</b>", body_style)],
         [Paragraph("<b>Target Branch:</b>", body_style), Paragraph("main", body_style),
          Paragraph("<b>Date of Examination:</b>", body_style), Paragraph("18-November-2026", body_style)]
     ]
@@ -99,12 +105,19 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
 
     # 2. Repository & Docker Hub References
     elements.append(Paragraph("2. Repository & Container Registry Links", h1_style))
+    gh_fork_url = f"https://github.com/{github_username}/MSE-2-SSED-Morning"
+    gh_starter_url = "https://github.com/atindeRR/MSE-2-SSED-Morning"
+    pr_url = "https://github.com/atindeRR/MSE-2-SSED-Morning/pull/4"
+    dh_backend_url = f"https://hub.docker.com/r/{dockerhub_username}/taskflow-backend"
+    dh_frontend_url = f"https://hub.docker.com/r/{dockerhub_username}/taskflow-frontend"
+
     repo_data = [
         [Paragraph("<b>Item</b>", body_style), Paragraph("<b>Target Reference / URL</b>", body_style)],
-        [Paragraph("GitHub Personal Fork", body_style), Paragraph(f"https://github.com/{github_username}/MSE-2-SSED-Morning", body_style)],
-        [Paragraph("Official Starter Repo", body_style), Paragraph("https://github.com/atindeRR/MSE-2-SSED-Morning", body_style)],
-        [Paragraph("Backend Docker Image", body_style), Paragraph(f"https://hub.docker.com/r/{dockerhub_username}/taskflow-backend", body_style)],
-        [Paragraph("Frontend Docker Image", body_style), Paragraph(f"https://hub.docker.com/r/{dockerhub_username}/taskflow-frontend", body_style)],
+        [Paragraph("Official Pull Request", body_style), Paragraph(f'<a href="{pr_url}"><font color="#2b6cb0"><u>{pr_url}</u></font></a>', link_style)],
+        [Paragraph("GitHub Personal Fork", body_style), Paragraph(f'<a href="{gh_fork_url}"><font color="#2b6cb0"><u>{gh_fork_url}</u></font></a>', link_style)],
+        [Paragraph("Official Starter Repo", body_style), Paragraph(f'<a href="{gh_starter_url}"><font color="#2b6cb0"><u>{gh_starter_url}</u></font></a>', link_style)],
+        [Paragraph("Backend Docker Image", body_style), Paragraph(f'<a href="{dh_backend_url}"><font color="#2b6cb0"><u>{dh_backend_url}</u></font></a>', link_style)],
+        [Paragraph("Frontend Docker Image", body_style), Paragraph(f'<a href="{dh_frontend_url}"><font color="#2b6cb0"><u>{dh_frontend_url}</u></font></a>', link_style)],
         [Paragraph("Application UI URL", body_style), Paragraph("http://localhost:8080 (Served via Nginx)", body_style)],
         [Paragraph("Backend Health Check URL", body_style), Paragraph("http://localhost:3000/health (Express API)", body_style)]
     ]
@@ -153,18 +166,19 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
         [Paragraph("Backend Health Check", body_style), Paragraph("curl http://localhost:3000/health", body_style), Paragraph("HTTP 200 {status:ok, postgres:ok, redis:ok}", body_style), Paragraph("PASSED", badge_pass)],
         [Paragraph("Nginx Reverse Proxy Check", body_style), Paragraph("curl http://localhost:8080/health", body_style), Paragraph("HTTP 200 proxied seamlessly to backend", body_style), Paragraph("PASSED", badge_pass)],
         [Paragraph("React Frontend Delivery", body_style), Paragraph("curl http://localhost:8080/", body_style), Paragraph("HTTP 200 index.html and static assets", body_style), Paragraph("PASSED", badge_pass)],
+        [Paragraph("Docker Hub Image Publishing", body_style), Paragraph("docker push shubham7080/*", body_style), Paragraph("Pushed frontend & backend to Docker Hub", body_style), Paragraph("PASSED", badge_pass)],
         [Paragraph("PostgreSQL Persistence", body_style), Paragraph("docker compose down && up -d", body_style), Paragraph("User count intact (1 row) via postgres_data", body_style), Paragraph("PASSED", badge_pass)],
         [Paragraph("Redis Caching Verification", body_style), Paragraph("GET /api/tasks (subsequent)", body_style), Paragraph("Served from redis-cache (30s TTL)", body_style), Paragraph("PASSED", badge_pass)],
         [Paragraph("Jest Test Suite (12 Tests)", body_style), Paragraph("npm test (Supertest)", body_style), Paragraph("12/12 passed (TC01 to TC12)", body_style), Paragraph("PASSED", badge_pass)]
     ]
-    t_ev = Table(ev_data, colWidths=[120, 150, 205, 65])
+    t_ev = Table(ev_data, colWidths=[120, 140, 215, 65])
     t_ev.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor('#e6fffa')),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor('#cbd5e0')),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor('#e2e8f0')),
         ('VALIGN', (0,0), (-1,-1), 'MIDDLE'),
-        ('TOPPADDING', (0,0), (-1,-1), 2.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2.5),
+        ('TOPPADDING', (0,0), (-1,-1), 2.2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.2),
     ]))
     elements.append(t_ev)
     elements.append(PageBreak())
@@ -198,7 +212,7 @@ def create_submission_pdf(roll_number, student_name, section, branch, github_use
     elements.append(t_tests)
     elements.append(Spacer(1, 6))
 
-    # 6. CI/CD Pipeline Stages
+    # 6. CI/CD GitHub Actions Workflow Specification
     elements.append(Paragraph("6. CI/CD GitHub Actions Workflow Specification", h1_style))
     elements.append(Paragraph(
         "The repository includes two fully configured GitHub Actions workflows preserving the instructor's evaluation harness: "
